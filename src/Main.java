@@ -8,7 +8,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        // Members from the photo
+       
         allMembers.add(new Member(1, "Savazhan", 17, "Basic"));
         allMembers.add(new StudentMember(2, "Tomiris", 16, "Student", "AITU"));
         allMembers.add(new VIPMember(3, "Aruzhan", 20, "VIP", "Yoga"));
