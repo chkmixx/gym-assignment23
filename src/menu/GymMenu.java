@@ -13,7 +13,7 @@ public class GymMenu implements Menu {
         allMembers.add(new BasicMember(1, "Savazhan", 17, "Basic"));
         allMembers.add(new StudentMember(2, "Tomiris", 16, "Student", "AITU"));
         allMembers.add(new VIPMember(3, "Aruzhan", 20, "VIP", "Yoga"));
-        allMembers.add(new Trainer(4, "Albina", 25, "Fitness", 6));
+        allMembers.add(new Trainer(4, "Nazerke", 25, "Fitness", 6));
     }
 
     @Override
@@ -41,13 +41,13 @@ public class GymMenu implements Menu {
                     case 2 -> addVIPMember();
                     case 3 -> polymorphismDemo();
                     case 0 -> running = false;
-                    default -> System.out.println("❌ Invalid choice!");
+                    default -> System.out.println(" Invalid choice!");
                 }
 
             } catch (NumberFormatException e) {
-                System.out.println("❌ Error: enter a number!");
+                System.out.println(" Error: enter a number!");
             } catch (Exception e) {
-                System.out.println("❌ Error: " + e.getMessage());
+                System.out.println(" Error: " + e.getMessage());
             }
         }
     }
@@ -81,7 +81,7 @@ public class GymMenu implements Menu {
         VIPMember vip = new VIPMember(id, name, age, "VIP", specialClass);
         allMembers.add(vip);
 
-        System.out.println("✅ VIP Member added!");
+        System.out.println(" VIP Member added!");
     }
 
     private void polymorphismDemo() {
