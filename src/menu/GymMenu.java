@@ -26,28 +26,28 @@ public class GymMenu implements Menu {
     }
 
     @Override
-    public void run() {
-        boolean running = true;
+    public void run(){
+        boolean running=true;
 
-        while (running) {
+        while(running){
             displayMenu();
-            System.out.print("Enter choice: ");
+            System.out.println("Enter choice");
 
-            try {
-                int choice = Integer.parseInt(scanner.nextLine());
+            try{
+                int choice=Integer.parseInt(scanner.nextLine());
 
-                switch (choice) {
-                    case 1 -> viewAllMembers();
-                    case 2 -> addVIPMember();
-                    case 3 -> polymorphismDemo();
-                    case 0 -> running = false;
-                    default -> System.out.println(" Invalid choice!");
+                switch (choice){
+                    case 1->viewAllMembers();
+                    case 2->addVIPMember();
+                    case 3->polymorphismDemo();
+                    case 0->running=false;
+                    default -> System.out.println("Invalid choice");
                 }
 
-            } catch (NumberFormatException e) {
-                System.out.println(" Error: enter a number!");
+            }catch(NumberFormatException e){
+                System.out.println("Error:enter a number!");
             } catch (Exception e) {
-                System.out.println(" Error: " + e.getMessage());
+                System.out.println("Eror:"+e.getMessage());
             }
         }
     }
