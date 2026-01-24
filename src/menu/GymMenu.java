@@ -47,7 +47,7 @@ public class GymMenu implements Menu {
             }catch(NumberFormatException e){
                 System.out.println("Error:enter a number!");
             } catch (Exception e) {
-                System.out.println("Eror:"+e.getMessage());
+                System.out.println("Error:"+e.getMessage());
             }
         }
     }
