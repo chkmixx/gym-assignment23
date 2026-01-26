@@ -25,7 +25,6 @@ public class GymMenu implements Menu {
         System.out.println("5. Demonstrate training (Polymorphism)");
         System.out.println("0. Exit");
     }
-
     @Override
     public void run() {
         boolean running = true;
