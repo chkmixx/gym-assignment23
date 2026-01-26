@@ -156,7 +156,7 @@ public class GymMenu implements Menu {
         }
 
         for (Member m : allMembers) {
-            m.attendTraining(); // Polymorphism
+            m.attendTraining();
         }
     }
 }
