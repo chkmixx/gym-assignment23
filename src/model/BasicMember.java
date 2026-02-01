@@ -2,8 +2,8 @@ package model;
 
 public class BasicMember extends Member {
 
-    public BasicMember(int id, String name, int age, String membershipType) {
-        super(id, name, age, membershipType);
+    public BasicMember(int id, String name, int age, String membershipType, double salary) {
+        super(id, name, age, membershipType, salary);
     }
 
     @Override
@@ -16,3 +16,4 @@ public class BasicMember extends Member {
         return "Basic Member";
     }
 }
+

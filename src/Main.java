@@ -24,7 +24,6 @@ public class Main {
 
         m1.setName("Ali Updated");
         dao.updateMember(m1);
-
         dao.deleteMember(3);
     }
 }
