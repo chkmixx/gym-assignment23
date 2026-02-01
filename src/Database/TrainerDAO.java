@@ -216,7 +216,6 @@ public class TrainerDAO {
 
         return trainers;
     }
-
     private Trainer extractTrainer(ResultSet rs) throws SQLException {
         return new Trainer(
                 rs.getInt("trainer_id"),

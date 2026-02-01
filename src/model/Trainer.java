@@ -43,5 +43,13 @@ public class Trainer {
             throw new IllegalArgumentException("Salary cannot be negative");
         this.salary = salary;
     }
+
+    @Override
+    public String toString() {
+        return "ID: " + id +
+                " | Name: " + name +
+                " | Specialization: " + specialization +
+                " | Salary: " + salary;
+    }
 }
 
