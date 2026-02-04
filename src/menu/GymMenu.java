@@ -16,8 +16,9 @@ public class GymMenu implements Menu {
         System.out.println("\n╔════════════════════════════════════════╗");
         System.out.println("     GYM MANAGEMENT SYSTEM        ");
         System.out.println("     Week 8: Database-Driven       ");
-        System.out.println("PostgreSQL database");
-        System.out.println(" CRUD + Search (Week 8)");
+        System.out.println("     PostgreSQL database           ");
+        System.out.println("     CRUD + Search (Week 8)        ");
+        System.out.println("╚════════════════════════════════════════╝");
     }
 
     @Override
@@ -146,7 +147,14 @@ public class GymMenu implements Menu {
             int id = scanner.nextInt();
             scanner.nextLine();
 
-            trainerDAO.deleteTrainer(id);
+            System.out.print("Are you sure you want to delete this trainer? (y/n): ");
+            String confirm = scanner.nextLine();
+
+            if (confirm.equalsIgnoreCase("y")) {
+                trainerDAO.deleteTrainer(id);
+            } else {
+                System.out.println(" Deletion cancelled.");
+            }
 
         } catch (Exception e) {
             System.out.println(" Invalid input!");
@@ -159,7 +167,6 @@ public class GymMenu implements Menu {
         String name = scanner.nextLine();
 
         List<Trainer> trainers = trainerDAO.searchByName(name);
-
         displaySearchResults(trainers);
     }
 
@@ -213,4 +220,5 @@ public class GymMenu implements Menu {
         scanner.nextLine();
     }
 }
+
 

@@ -63,6 +63,34 @@ public class TrainerDAO {
 
         return trainers;
     }
+    public Trainer getTrainerById(int id) {
+        String sql = "SELECT * FROM trainer WHERE trainer_id=?";
+
+        Connection connection = DatabaseConnection.getConnection();
+        if (connection == null) return null;
+
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, id);
+
+            ResultSet rs = statement.executeQuery();
+
+            if (rs.next()) {
+                return extractTrainer(rs);
+            }
+
+            rs.close();
+            statement.close();
+
+        } catch (SQLException e) {
+            System.out.println(" Get trainer by ID failed!");
+            e.printStackTrace();
+        } finally {
+            DatabaseConnection.closeConnection(connection);
+        }
+
+        return null;
+    }
 
     public boolean updateTrainer(Trainer trainer) {
         String sql = "UPDATE trainer SET name=?, specialization=?, salary=? WHERE trainer_id=?";
