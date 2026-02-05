@@ -1,4 +1,4 @@
-package model;
+package members;
 
 public class StudentMember extends Member {
 

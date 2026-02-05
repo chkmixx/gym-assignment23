@@ -1,20 +1,21 @@
 package Database;
-import Database.TrainerDAO;
+
 import model.Trainer;
 
 public class TestInsertTrainer {
     public static void main(String[] args) {
+
         Trainer trainer = new Trainer(
                 0,
                 "Aibek",
-                "Fitness",
-                450000
+                450000,
+                5,
+                "Fitness"
         );
 
-        TrainerDAO dao = new TrainerDAO();
+        StaffDAO dao = new StaffDAO();
         dao.insertTrainer(trainer);
-
-
     }
 }
+
 

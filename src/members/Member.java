@@ -1,4 +1,4 @@
-package model;
+package members;
 
 public abstract class Member {
 

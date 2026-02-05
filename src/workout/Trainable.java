@@ -1,3 +1,5 @@
+package workout;
+
 public interface Trainable {
     void train();
     String getPlan();

@@ -1,42 +1,47 @@
 package menu;
 
-import Database.TrainerDAO;
+import model.Staff;
 import model.Trainer;
+import model.AdminStaff;
+
+import Database.StaffDAO;
+
 import java.util.List;
 import java.util.Scanner;
 
+
 public class GymMenu implements Menu {
-    private Scanner scanner;
-    private TrainerDAO trainerDAO;
+
+    private final Scanner scanner;
+    private final StaffDAO staffDAO;
 
     public GymMenu() {
         this.scanner = new Scanner(System.in);
-        this.trainerDAO = new TrainerDAO();
+        this.staffDAO = new StaffDAO();
 
-        System.out.println("\n╔════════════════════════════════════════╗");
-        System.out.println("     GYM MANAGEMENT SYSTEM        ");
-        System.out.println("     Week 8: Database-Driven       ");
-        System.out.println("     PostgreSQL database           ");
-        System.out.println("     CRUD + Search (Week 8)        ");
-        System.out.println("╚════════════════════════════════════════╝");
+        System.out.println("\n========================================");
+        System.out.println("        GYM MANAGEMENT SYSTEM");
+        System.out.println("        Week 8: Database Driven");
+        System.out.println("========================================");
     }
 
     @Override
     public void displayMenu() {
-        System.out.println("\n");
-        System.out.println("            MAIN MENU                  ");
-        System.out.println("═════════════════════════════════");
-        System.out.println("┌─ TRAINER MANAGEMENT ───────────────────┐");
-        System.out.println("│ 1. Add Trainer                         │");
-        System.out.println("│ 2. View All Trainers                   │");
-        System.out.println("│ 3. Update Trainer                      │");
-        System.out.println("│ 4. Delete Trainer                      │");
-        System.out.println("├─ SEARCH & FILTER ──────────────────────┤");
-        System.out.println("│ 5. Search Trainer by Name              │");
-        System.out.println("│ 6. Search by Salary Range              │");
-        System.out.println("│ 7. High-Paid Trainers (Salary >= X)    │");
-        System.out.println("│ 0. Exit                                │");
-        System.out.println("└────────────────────────────────────────┘");
+        System.out.println("\n============= MAIN MENU ================");
+        System.out.println("1. Add Trainer");
+        System.out.println("2. Add Admin Staff");
+        System.out.println("3. View All Staff");
+        System.out.println("4. View Trainers Only");
+        System.out.println("5. View Admin Staff Only");
+        System.out.println("6. Update Staff");
+        System.out.println("7. Delete Staff");
+        System.out.println("8. Search by Name");
+        System.out.println("9. Search by Salary Range");
+        System.out.println("10. High Paid Staff");
+        System.out.println("11. Polymorphism Demo");
+        System.out.println("0. Exit");
+        System.out.println("========================================");
+        System.out.print("Choose option: ");
     }
 
     @Override
@@ -45,7 +50,6 @@ public class GymMenu implements Menu {
 
         while (running) {
             displayMenu();
-            System.out.print("\n Enter your choice: ");
 
             try {
                 int choice = scanner.nextInt();
@@ -53,17 +57,21 @@ public class GymMenu implements Menu {
 
                 switch (choice) {
                     case 1 -> addTrainer();
-                    case 2 -> viewAllTrainers();
-                    case 3 -> updateTrainer();
-                    case 4 -> deleteTrainer();
-                    case 5 -> searchByName();
-                    case 6 -> searchBySalaryRange();
-                    case 7 -> searchHighPaidTrainers();
+                    case 2 -> addAdmin();
+                    case 3 -> viewAllStaff();
+                    case 4 -> viewTrainers();
+                    case 5 -> viewAdmins();
+                    case 6 -> updateStaff();
+                    case 7 -> deleteStaff();
+                    case 8 -> searchByName();
+                    case 9 -> searchBySalaryRange();
+                    case 10 -> searchHighPaidStaff();
+                    case 11 -> staffDAO.demonstratePolymorphism();
                     case 0 -> {
                         running = false;
-                        System.out.println("\n Goodbye!");
+                        System.out.println("Goodbye!");
                     }
-                    default -> System.out.println(" Invalid choice!");
+                    default -> System.out.println("Invalid option!");
                 }
 
                 if (choice != 0) {
@@ -71,154 +79,166 @@ public class GymMenu implements Menu {
                 }
 
             } catch (Exception e) {
-                System.out.println(" Error: Invalid input!");
+                System.out.println("Invalid input!");
                 scanner.nextLine();
             }
         }
-
-        scanner.close();
     }
+
 
     private void addTrainer() {
-        try {
-            System.out.println("\n--- ADD TRAINER ---");
-
-            System.out.print("Enter Name: ");
-            String name = scanner.nextLine();
-
-            System.out.print("Enter Specialization: ");
-            String specialization = scanner.nextLine();
-
-            System.out.print("Enter Salary: ");
-            int salary = scanner.nextInt();
-            scanner.nextLine();
-
-            Trainer trainer = new Trainer(0, name, specialization, salary);
-            trainerDAO.insertTrainer(trainer);
-
-        } catch (Exception e) {
-            System.out.println(" Invalid input!");
-            scanner.nextLine();
-        }
-    }
-
-    private void viewAllTrainers() {
-        List<Trainer> trainers = trainerDAO.getAllTrainers();
-
-        System.out.println("\n--- ALL TRAINERS ---");
-
-        if (trainers.isEmpty()) {
-            System.out.println(" No trainers found.");
-        } else {
-            for (int i = 0; i < trainers.size(); i++) {
-                System.out.println((i + 1) + ". " + trainers.get(i));
-            }
-        }
-    }
-
-    private void updateTrainer() {
-        try {
-            System.out.print("\nEnter Trainer ID to update: ");
-            int id = scanner.nextInt();
-            scanner.nextLine();
-
-            System.out.print("New Name: ");
-            String name = scanner.nextLine();
-
-            System.out.print("New Specialization: ");
-            String specialization = scanner.nextLine();
-
-            System.out.print("New Salary: ");
-            int salary = scanner.nextInt();
-            scanner.nextLine();
-
-            Trainer trainer = new Trainer(id, name, specialization, salary);
-            trainerDAO.updateTrainer(trainer);
-
-        } catch (Exception e) {
-            System.out.println(" Invalid input!");
-            scanner.nextLine();
-        }
-    }
-
-    private void deleteTrainer() {
-        try {
-            System.out.print("\nEnter Trainer ID to delete: ");
-            int id = scanner.nextInt();
-            scanner.nextLine();
-
-            System.out.print("Are you sure you want to delete this trainer? (y/n): ");
-            String confirm = scanner.nextLine();
-
-            if (confirm.equalsIgnoreCase("y")) {
-                trainerDAO.deleteTrainer(id);
-            } else {
-                System.out.println(" Deletion cancelled.");
-            }
-
-        } catch (Exception e) {
-            System.out.println(" Invalid input!");
-            scanner.nextLine();
-        }
-    }
-
-    private void searchByName() {
-        System.out.print("\nEnter name to search: ");
+        System.out.print("Name: ");
         String name = scanner.nextLine();
 
-        List<Trainer> trainers = trainerDAO.searchByName(name);
-        displaySearchResults(trainers);
+        System.out.print("Salary: ");
+        double salary = scanner.nextDouble();
+
+        System.out.print("Experience years: ");
+        int exp = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.print("Specialization: ");
+        String spec = scanner.nextLine();
+
+        Trainer trainer = new Trainer(0, name, salary, exp, spec);
+        staffDAO.insertTrainer(trainer);
+    }
+
+    private void addAdmin() {
+        System.out.print("Name: ");
+        String name = scanner.nextLine();
+
+        System.out.print("Salary: ");
+        double salary = scanner.nextDouble();
+
+        System.out.print("Experience years: ");
+        int exp = scanner.nextInt();
+        scanner.nextLine();
+
+        AdminStaff admin = new AdminStaff(0, name, salary, exp);
+        staffDAO.insertAdmin(admin);
+    }
+
+
+
+    private void viewAllStaff() {
+        staffDAO.displayAllStaff();
+    }
+
+    private void viewTrainers() {
+        List<Trainer> trainers = staffDAO.getAllTrainers();
+
+        System.out.println("\n===== TRAINERS =====");
+        if (trainers.isEmpty()) {
+            System.out.println("No trainers found.");
+        } else {
+            for (Trainer t : trainers) {
+                System.out.println(t);
+            }
+        }
+    }
+
+    private void viewAdmins() {
+        List<AdminStaff> admins = staffDAO.getAllAdmins();
+
+        System.out.println("\n===== ADMIN STAFF =====");
+        if (admins.isEmpty()) {
+            System.out.println("No admin staff found.");
+        } else {
+            for (AdminStaff a : admins) {
+                System.out.println(a);
+            }
+        }
+    }
+
+
+
+    private void updateStaff() {
+        System.out.print("Enter staff ID: ");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+
+        Staff staff = staffDAO.getStaffById(id);
+
+        if (staff == null) {
+            System.out.println("Staff not found.");
+            return;
+        }
+
+        System.out.print("New name: ");
+        String name = scanner.nextLine();
+
+        System.out.print("New salary: ");
+        double salary = scanner.nextDouble();
+
+        System.out.print("New experience years: ");
+        int exp = scanner.nextInt();
+        scanner.nextLine();
+
+        if (staff instanceof Trainer) {
+            System.out.print("New specialization: ");
+            String spec = scanner.nextLine();
+            staffDAO.updateTrainer(new Trainer(id, name, salary, exp, spec));
+        } else if (staff instanceof AdminStaff) {
+            staffDAO.updateAdmin(new AdminStaff(id, name, salary, exp));
+        }
+    }
+
+
+
+    private void deleteStaff() {
+        System.out.print("Enter staff ID to delete: ");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+
+        staffDAO.deleteStaff(id);
+    }
+
+
+
+    private void searchByName() {
+        System.out.print("Enter name: ");
+        String name = scanner.nextLine();
+
+        List<Staff> results = staffDAO.searchByName(name);
+        displayResults(results);
     }
 
     private void searchBySalaryRange() {
-        try {
-            System.out.print("\nEnter minimum salary: ");
-            int min = scanner.nextInt();
+        System.out.print("Min salary: ");
+        double min = scanner.nextDouble();
 
-            System.out.print("Enter maximum salary: ");
-            int max = scanner.nextInt();
-            scanner.nextLine();
+        System.out.print("Max salary: ");
+        double max = scanner.nextDouble();
+        scanner.nextLine();
 
-            List<Trainer> trainers = trainerDAO.searchBySalaryRange(min, max);
-            displaySearchResults(trainers);
-
-        } catch (Exception e) {
-            System.out.println(" Invalid input!");
-            scanner.nextLine();
-        }
+        List<Staff> results = staffDAO.searchBySalaryRange(min, max);
+        displayResults(results);
     }
 
-    private void searchHighPaidTrainers() {
-        try {
-            System.out.print("\nEnter minimum salary: ");
-            int min = scanner.nextInt();
-            scanner.nextLine();
+    private void searchHighPaidStaff() {
+        System.out.print("Minimum salary: ");
+        double min = scanner.nextDouble();
+        scanner.nextLine();
 
-            List<Trainer> trainers = trainerDAO.searchByMinSalary(min);
-            displaySearchResults(trainers);
-
-        } catch (Exception e) {
-            System.out.println(" Invalid input!");
-            scanner.nextLine();
-        }
+        List<Staff> results = staffDAO.searchByMinSalary(min);
+        displayResults(results);
     }
 
-    private void displaySearchResults(List<Trainer> trainers) {
-        System.out.println("\n--- SEARCH RESULTS ---");
-
-        if (trainers.isEmpty()) {
-            System.out.println(" No trainers found.");
+    private void displayResults(List<Staff> list) {
+        if (list.isEmpty()) {
+            System.out.println("No results found.");
         } else {
-            for (int i = 0; i < trainers.size(); i++) {
-                System.out.println((i + 1) + ". " + trainers.get(i));
+            for (Staff s : list) {
+                System.out.println("[" + s.getRole() + "] " + s);
             }
         }
     }
 
+
     private void pressEnterToContinue() {
-        System.out.println("\n[Press Enter to continue]");
+        System.out.println("\nPress Enter to continue...");
         scanner.nextLine();
     }
 }
-
 
