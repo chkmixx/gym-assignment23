@@ -15,4 +15,12 @@ public class AdminStaff extends Staff {
     public String getRole() {
         return "ADMIN";
     }
+    @Override
+    public String toString() {
+        return "ID: " + getStaffId() +
+                ", Name: " + getName() +
+                ", Salary: " + getSalary() +
+                ", Experience: " + getExperienceYears() + " years";
+    }
+
 }

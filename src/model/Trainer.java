@@ -1,4 +1,5 @@
 package model;
+
 public class Trainer extends Staff {
 
     private String specialization;
@@ -10,7 +11,7 @@ public class Trainer extends Staff {
 
     @Override
     public void work() {
-        System.out.println("Trainer " + name + " is training clients.");
+        System.out.println("Trainer " + getName() + " is training clients.");
     }
 
     @Override
@@ -21,4 +22,14 @@ public class Trainer extends Staff {
     public String getSpecialization() {
         return specialization;
     }
+
+    @Override
+    public String toString() {
+        return "[TRAINER] ID: " + getStaffId() +
+                ", Name: " + getName() +
+                ", Salary: " + getSalary() +
+                ", Experience: " + getExperienceYears() + " years" +
+                ", Specialization: " + specialization;
+    }
 }
+
