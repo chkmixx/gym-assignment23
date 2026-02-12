@@ -8,7 +8,7 @@ public class AdminStaff extends Staff {
 
     @Override
     public void work() {
-        System.out.println("Admin staff " + name + " is managing gym operations.");
+        System.out.println("Admin staff " + getName() + " is managing gym operations.");
     }
 
     @Override

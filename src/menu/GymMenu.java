@@ -85,8 +85,7 @@ public class GymMenu implements Menu {
         }
     }
 
-
-    private void addTrainer() {
+    private void addTrainer() { //
         System.out.print("Name: ");
         String name = scanner.nextLine();
 
@@ -119,9 +118,7 @@ public class GymMenu implements Menu {
         staffDAO.insertAdmin(admin);
     }
 
-
-
-    private void viewAllStaff() {
+    private void viewAllStaff() { //
         staffDAO.displayAllStaff();
     }
 
@@ -151,9 +148,7 @@ public class GymMenu implements Menu {
         }
     }
 
-
-
-    private void updateStaff() {
+    private void updateStaff() { //
         System.out.print("Enter staff ID: ");
         int id = scanner.nextInt();
         scanner.nextLine();
@@ -184,9 +179,7 @@ public class GymMenu implements Menu {
         }
     }
 
-
-
-    private void deleteStaff() {
+    private void deleteStaff() { //
         System.out.print("Enter staff ID to delete: ");
         int id = scanner.nextInt();
         scanner.nextLine();
@@ -194,9 +187,7 @@ public class GymMenu implements Menu {
         staffDAO.deleteStaff(id);
     }
 
-
-
-    private void searchByName() {
+    private void searchByName() { //
         System.out.print("Enter name: ");
         String name = scanner.nextLine();
 
@@ -233,6 +224,9 @@ public class GymMenu implements Menu {
                 System.out.println("[" + s.getRole() + "] " + s);
             }
         }
+    }
+    private void demonstratePolymorphism() { //
+        staffDAO.demonstratePolymorphism();
     }
 
 
